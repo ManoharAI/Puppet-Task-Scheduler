@@ -6,16 +6,8 @@ import time
 
 app = Flask(__name__)
 
-# Database connection with retry
-engine = None
-while True:
-    try:
-        engine = create_engine('postgresql://user:password@db:5432/mydb')
-        engine.connect()
-        break
-    except Exception as e:
-        print("Waiting for database... Retrying in 5 seconds...")
-        time.sleep(5)
+DB_URL = "sqlite:///task_scheduler.db"
+engine = create_engine(DB_URL, echo=True)
 
 Base = declarative_base()
 
@@ -31,7 +23,7 @@ Base.metadata.create_all(engine)
 
 Session = sessionmaker(bind=engine)
 
-# HTML Template with Proper Headings
+# HTML Template
 HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="en">
@@ -42,8 +34,8 @@ HTML_TEMPLATE = """
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="container mt-5">
-    <h1 class="text-center">Sathvik Kiran</h1>
-    <h3 class="text-center">Roll Number: 2022BCD0028</h3>
+    <h1 class="text-center">Manohar Reddy</h1>
+    <h3 class="text-center">Roll Number: 2022BCD0027</h3>
     <h4 class="text-center text-muted">DevOps Enthusiast</h4>
     
     <hr>
@@ -100,4 +92,4 @@ def complete_task(task_id):
     return redirect('/')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8081)
+    app.run(host='127.0.0.1', port=8081, debug=True)
