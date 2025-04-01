@@ -63,7 +63,7 @@ puppet --version
 
 ```bash
 # Clone your task scheduler repository
-git clone <repository-url>
+git clone https://github.com/ManoharAI/Puppet-Task-Scheduler.git
 cd Task-Scheduling
 ```
 
